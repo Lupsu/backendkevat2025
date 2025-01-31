@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import backendkevat2025.bookstore.domain.Book;
 import backendkevat2025.bookstore.domain.BookRepository;
+import backendkevat2025.bookstore.domain.CategoryRepository;
 
 
 
@@ -19,7 +20,10 @@ import backendkevat2025.bookstore.domain.BookRepository;
 @Controller
 public class BookController {
     @Autowired
-	private BookRepository repository; 
+	private BookRepository brepository;
+
+    @Autowired
+	private CategoryRepository crepository; 
 
     @RequestMapping(value="/index", method=RequestMethod.GET)
     public String goToIndex() {
@@ -28,31 +32,33 @@ public class BookController {
 
     @GetMapping("/booklist")
     public String goToBooklist(Model model) {
-        model.addAttribute("books", repository.findAll());
+        model.addAttribute("books", brepository.findAll());
         return "booklist";
     }
 
     @GetMapping("/addbook")
     public String addBook(Model model) {
         model.addAttribute("book", new Book());
+        model.addAttribute("categories", crepository.findAll());
         return "addbook";
     }
 
     @PostMapping("/savebook")
     public String save(Book book) {
-        repository.save(book);
+        brepository.save(book);
         return "redirect:/booklist";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteBook(@PathVariable("id") Long bookId, Model model) {
-        repository.deleteById(bookId);
+        brepository.deleteById(bookId);
         return "redirect:../booklist";
     }
 
     @GetMapping("/edit/{id}")
     public String editBook(@PathVariable("id") Long bookId, Model model) {
-        model.addAttribute("book", repository.findById(bookId));
+        model.addAttribute("book", brepository.findById(bookId));
+        model.addAttribute("categories", crepository.findAll());
         return "addbook";
     }
 }
