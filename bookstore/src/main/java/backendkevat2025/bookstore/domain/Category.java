@@ -31,7 +31,7 @@ public class Category {
         return categoryid;
     }
 
-    public void setCategoryid(long categoryid) {
+    public void setCategoryid(Long categoryid) {
         this.categoryid = categoryid;
     }
 
