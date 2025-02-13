@@ -1,7 +1,5 @@
 package backendkevat2025.bookstore.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,7 +20,6 @@ public class Book {
     private Double price;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "categoryid")
     private Category category;
 
