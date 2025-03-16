@@ -15,8 +15,11 @@ class BookstoreApplicationTests {
 
 	@Autowired
 	private BookController bController;
+	@Autowired
 	private BookRestController bRestController;
+	@Autowired
 	private UserController uController;
+	@Autowired
 	private UserDetailServiceImpl uDetailServiceController;
 
 	@Test

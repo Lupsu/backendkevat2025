@@ -3,12 +3,14 @@ package backendkevat2025.bookstore;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import backendkevat2025.bookstore.domain.AppUser;
 import backendkevat2025.bookstore.domain.AppUserRepository;
 
 @DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class JPADataTests {
     @Autowired
     private AppUserRepository appUserRepository;

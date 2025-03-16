@@ -1,16 +1,7 @@
 package backendkevat2025.bookstore;
 
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-
-import backendkevat2025.bookstore.domain.AppUser;
-import backendkevat2025.bookstore.domain.AppUserRepository;
-import backendkevat2025.bookstore.domain.Book;
-import backendkevat2025.bookstore.domain.BookRepository;
-import backendkevat2025.bookstore.domain.Category;
-import backendkevat2025.bookstore.domain.CategoryRepository;
 
 @SpringBootApplication
 public class BookstoreApplication {
@@ -18,6 +9,9 @@ public class BookstoreApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BookstoreApplication.class, args);
 	}
+	/*
+	 * 
+	
 	@Bean
 	public CommandLineRunner bookstoreSampleData(BookRepository brepository, CategoryRepository crepository, AppUserRepository urepository) {
 		return (args) -> {
@@ -40,5 +34,6 @@ public class BookstoreApplication {
 		};
 
 		};
+		 */
 	}
 
