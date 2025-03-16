@@ -4,39 +4,49 @@ DROP TABLE IF EXISTS vendors;
 DROP TABLE IF EXISTS transactions;
 DROP TABLE IF EXISTS subscriptions;
 
-CREATE TABLE roles (role_id INT GENERATED ALWAYS AS IDENTITY
-, role_name VARCHAR(50) NOT NULL
-, PRIMARY KEY (role_id));
+CREATE TABLE roles (
+    role_id INT GENERATED ALWAYS AS IDENTITY,
+    role_name VARCHAR(50) NOT NULL,
+    PRIMARY KEY (role_id)
+);
 
-CREATE TABLE users (user_id INT GENERATED ALWAYS AS IDENTITY
-, username VARCHAR(50) NOT NULL
-, first_name VARCHAR(100) NOT NULL
-, last_name VARCHAR(150) NOT NULL
-, email VARCHAR(150) NOT NULL
-, passwordhash VARCHAR(150) NOT NULL
-, role_id NUMERIC(100) NOT NULL
-, CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES roles (role_id));
-, PRIMARY KEY (user_id);
+CREATE TABLE users (
+    user_id INT GENERATED ALWAYS AS IDENTITY,
+    username VARCHAR(50) NOT NULL,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(150) NOT NULL,
+    email VARCHAR(150) NOT NULL,
+    passwordhash VARCHAR(150) NOT NULL,
+    role_id INT NOT NULL,
+    CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES roles (role_id),
+    PRIMARY KEY (user_id)
+);
 
-CREATE TABLE vendors (vendor_id INT GENERATED ALWAYS AS IDENTITY
-, vendor_name VARCHAR(150) NOT NULL
-, PRIMARY KEY (vendor_id));
+CREATE TABLE vendors (
+    vendor_id INT GENERATED ALWAYS AS IDENTITY,
+    vendor_name VARCHAR(150) NOT NULL,
+    PRIMARY KEY (vendor_id)
+);
 
-CREATE TABLE transactions (transaction_id INT GENERATED ALWAYS AS IDENTITY
-, user_id NUMERIC NOT NULL
-, subscription_id NUMERIC NOT NULL
-, buy_price NUMERIC(10,2) NOT NULL
-, CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (user_id)
-, CONSTRAINT fk_subscription FOREIGN KEY (subscription_id) REFERENCES subscriptions (subscription_id)
-, PRIMARY KEY (transaction_id));
+CREATE TABLE transactions (
+    transaction_id INT GENERATED ALWAYS AS IDENTITY,
+    user_id INT NOT NULL,
+    subscription_id INT NOT NULL,
+    buy_price NUMERIC(10,2) NOT NULL,
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (user_id),
+    CONSTRAINT fk_subscription FOREIGN KEY (subscription_id) REFERENCES subscriptions (subscription_id),
+    PRIMARY KEY (transaction_id)
+);
 
-CREATE TABLE subscriptions (subscription_id INT GENERATED ALWAYS AS IDENTITY
-, subscription_name VARCHAR(150) NOT NULL
-, vendor_id NUMERIC NOT NULL
-, subscription_description VARCHAR(500) NOT NULL
-, subscription_erp_price NUMERIC(10,2) NOT NULL
-, CONSTRAINT fk_vendor FOREIGN KEY (vendor_id) REFERENCES vendors (vendor_id)
-, PRIMARY KEY (subscription_id));
+CREATE TABLE subscriptions (
+    subscription_id INT GENERATED ALWAYS AS IDENTITY,
+    subscription_name VARCHAR(150) NOT NULL,
+    vendor_id INT NOT NULL,
+    subscription_description VARCHAR(500) NOT NULL,
+    subscription_erp_price NUMERIC(10,2) NOT NULL,
+    CONSTRAINT fk_vendor FOREIGN KEY (vendor_id) REFERENCES vendors (vendor_id),
+    PRIMARY KEY (subscription_id)
+);
 
 INSERT INTO roles (role_name)
 VALUES ('USER'), ('ADMIN');
