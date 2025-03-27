@@ -8,6 +8,9 @@
 <body>
     <div th:replace="~{navbar :: navbar}"></div>
     <div class="container">
+        <!--
+        List available subscriptions
+        -->
     <h1>Subscriptions</h1>
     <table class="table table-striped">
 		<tr>
@@ -17,20 +20,32 @@
             <th>ERP Price</th>
             <th></th>
             <th></th>
-		</tr>  
+		</tr>
+        <!--
+        Fetch subscriptions attributes
+        -->  
     	<tr th:each = "subscription : ${subscriptions}">
             <td th:text="${subscription.vendor.vendorName}"></td>
     		<td th:text="${subscription.subscriptionName}"></td>
     		<td th:text="${subscription.subscriptionDescription}"></td>
             <td th:text="${subscription.subscriptionErpPrice}"></td>
             <td>
+                <!--
+                Buy button for users with "ROLE_USER"
+                -->
                 <form th:action="@{/addtransaction/{id}(id=${subscription.id})}" method="post" style="display:inline;">
                     <button type="submit" class="btn btn-success" sec:authorize="hasAuthority('ROLE_USER')">Buy Subscription</button>
                 </form>
             </td>
+            <!--
+            Edit and Delete buttons for users with "ROLE_ADMIN"
+            -->
             <td><a sec:authorize="hasAuthority ('ROLE_ADMIN')" th:href="@{/edit/{id}(id=${subscription.id})}" class="btn btn-primary">Edit</a></td> 
             <td><a sec:authorize="hasAuthority ('ROLE_ADMIN')" th:href="@{/delete/{id}(id=${subscription.id})}" class="btn btn-danger">Delete</a></td>
     	</tr>
+        <!--
+        Add subscription button for users with "ROLE_ADMIN"
+        -->
      </table>
      <a sec:authorize="hasAuthority('ROLE_ADMIN')" th:href="@{/addsubscription}" class="btn btn-success">Add Subscription</a>
     </div>

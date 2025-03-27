@@ -26,10 +26,16 @@
 				<label> Email :<input type="text" th:field="*{email}" class="form-control"/></label>
 				<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</p>	
 			</div>
+			<!--
+			Password check
+			-->
 			<div>
 				<label> Password :<input type="password" th:field="*{password}" class="form-control"/></label>
 				<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</p>	
 			</div>
+			<!--
+			Check that passwords match
+			-->
 			<div>
 				<label> Re-type Password: <input type="password" th:field="*{passwordCheck}" class="form-control"/></label>
 				<p th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}">Password Match Error</p>	
