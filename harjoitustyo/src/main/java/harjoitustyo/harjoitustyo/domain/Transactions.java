@@ -20,6 +20,9 @@ public class Transactions {
     @Column(name = "buy_price", nullable = false)
     private double buyPrice;
 
+    @Column(name = "purchase_date", nullable = false)
+    private String purchaseDate;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private AppUsers user;
@@ -31,8 +34,9 @@ public class Transactions {
     public Transactions() {
     }
 
-    public Transactions(double buyPrice, AppUsers user, Subscriptions subscription) {
+    public Transactions(double buyPrice, String purchaseDate, AppUsers user, Subscriptions subscription) {
         this.buyPrice = buyPrice;
+        this.purchaseDate = purchaseDate;
         this.user = user;
         this.subscription = subscription;
     }
@@ -51,6 +55,14 @@ public class Transactions {
 
     public void setBuyPrice(double buyPrice) {
         this.buyPrice = buyPrice;
+    }
+
+    public String getPurchaseDate() {
+        return this.purchaseDate;
+    }
+
+    public void setPurchaseDate(String purchaseDate) {
+        this.purchaseDate = purchaseDate;
     }
 
     public AppUsers getUser() {
@@ -73,10 +85,11 @@ public class Transactions {
     public String toString() {
         return "{" +
             " id='" + getId() + "'" +
-            ", buy_price='" + getBuyPrice() + "'" +
+            ", buyPrice='" + getBuyPrice() + "'" +
+            ", purchaseDate='" + getPurchaseDate() + "'" +
             ", user='" + getUser() + "'" +
             ", subscription='" + getSubscription() + "'" +
             "}";
     }
-
+    
 }

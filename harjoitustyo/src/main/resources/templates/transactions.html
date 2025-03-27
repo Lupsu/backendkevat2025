@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Subscriptions Manager</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+    <div th:replace="~{navbar :: navbar}"></div>
+    <div class="container">
+        <h1>Transactions</h1>
+        <table class="table table-striped">
+	    	<tr>
+                <th>Transaction ID</th>
+	    	    <th>Vendor</th>
+	    	    <th>Name</th>
+	    	    <th>Description</th>
+                <th>Buy Price</th>
+                <th>Subscription purchase date</th>
+	    	</tr>
+            <!--
+            Fetch available transactions
+            -->
+        	<tr th:each = "transaction : ${transactions}">
+                <td th:text="${transaction.id}"></td>
+        		<td th:text="${transaction.subscription.vendor.vendorName}"></td>
+                <td th:text="${transaction.subscription.subscriptionName}"></td>
+        		<td th:text="${transaction.subscription.subscriptionDescription}"></td>
+                <td th:text="${transaction.buyPrice}"></td>
+                <td th:text="${transaction.purchaseDate}"></td>		
+        	</tr>
+        </table>
+    </div>
+     
+</body>
+</html>

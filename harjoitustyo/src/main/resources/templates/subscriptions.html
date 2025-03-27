@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <title>Subscriptions Manager</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+    <div th:replace="~{navbar :: navbar}"></div>
+    <div class="container">
+    <h1>Subscriptions</h1>
+    <table class="table table-striped">
+		<tr>
+            <th>Vendor</th>
+		    <th>Name</th>
+		    <th>Description</th>
+            <th>ERP Price</th>
+            <th></th>
+            <th></th>
+		</tr>  
+    	<tr th:each = "subscription : ${subscriptions}">
+            <td th:text="${subscription.vendor.vendorName}"></td>
+    		<td th:text="${subscription.subscriptionName}"></td>
+    		<td th:text="${subscription.subscriptionDescription}"></td>
+            <td th:text="${subscription.subscriptionErpPrice}"></td>
+            <td>
+                <form th:action="@{/addtransaction/{id}(id=${subscription.id})}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-success" sec:authorize="hasAuthority('ROLE_USER')">Buy Subscription</button>
+                </form>
+            </td>
+            <td><a sec:authorize="hasAuthority ('ROLE_ADMIN')" th:href="@{/edit/{id}(id=${subscription.id})}" class="btn btn-primary">Edit</a></td> 
+            <td><a sec:authorize="hasAuthority ('ROLE_ADMIN')" th:href="@{/delete/{id}(id=${subscription.id})}" class="btn btn-danger">Delete</a></td>
+    	</tr>
+     </table>
+     <a sec:authorize="hasAuthority('ROLE_ADMIN')" th:href="@{/addsubscription}" class="btn btn-success">Add Subscription</a>
+    </div>
+</body>
+</html>

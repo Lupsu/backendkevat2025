@@ -26,7 +26,15 @@ public class WebSecurityConfig {
             .requestMatchers(antMatcher("/css/**")).permitAll()
             .requestMatchers(antMatcher("/signup")).permitAll()
             .requestMatchers(antMatcher("/saveuser")).permitAll()
+            .requestMatchers(antMatcher("/addsubscription")).hasRole("ADMIN")
+            .requestMatchers(antMatcher("/savesubscription")).hasRole("ADMIN")
+            .requestMatchers(antMatcher("/editsubscription")).hasRole("ADMIN")
+            .requestMatchers(antMatcher("/rest/subscriptions")).permitAll()
+            .requestMatchers(antMatcher("/rest/subscriptions/**")).permitAll()
             .anyRequest().authenticated()
+        )
+        .csrf(csrf -> csrf
+            .ignoringRequestMatchers(antMatcher("/rest/subscriptions/**"))
         )
         .headers(headers -> headers
             .frameOptions(frameoptions ->
@@ -35,7 +43,7 @@ public class WebSecurityConfig {
         )
         .formLogin(formlogin -> formlogin
             .loginPage("/login")
-            .defaultSuccessUrl("/subscriptionlist", true)
+            .defaultSuccessUrl("/subscriptions", true)
             .permitAll()
         )
         .logout(logout -> logout

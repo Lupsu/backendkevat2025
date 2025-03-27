@@ -1,5 +1,9 @@
 package harjoitustyo.harjoitustyo.domain;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -30,14 +35,19 @@ public class Subscriptions {
     @JoinColumn(name = "vendor_id")
     private Vendors vendor;
 
+    @JsonIgnoreProperties("subscription")
+    @OneToMany(mappedBy = "subscription")
+    private List<Transactions> transaction;
+
     public Subscriptions() {
     }
 
-    public Subscriptions(String subscriptionName, String subscriptionDescription, double subscriptionErpPrice, Vendors vendor) {
+    public Subscriptions(String subscriptionName, String subscriptionDescription, double subscriptionErpPrice, Vendors vendor, List<Transactions> transaction) {
         this.subscriptionName = subscriptionName;
         this.subscriptionDescription = subscriptionDescription;
         this.subscriptionErpPrice = subscriptionErpPrice;
         this.vendor = vendor;
+        this.transaction = transaction;
     }
 
     public Long getId() {
@@ -78,6 +88,14 @@ public class Subscriptions {
 
     public void setVendor(Vendors vendor) {
         this.vendor = vendor;
+    }
+
+    public List<Transactions> getTransaction() {
+        return this.transaction;
+    }
+
+    public void setTransaction(List<Transactions> transaction) {
+        this.transaction = transaction;
     }
 
     @Override

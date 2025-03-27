@@ -33,6 +33,7 @@ CREATE TABLE transactions (
     user_id INT NOT NULL,
     subscription_id INT NOT NULL,
     buy_price NUMERIC(10,2) NOT NULL,
+    purchase_date DATE NOT NULL,
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users (user_id),
     CONSTRAINT fk_subscription FOREIGN KEY (subscription_id) REFERENCES subscriptions (subscription_id),
     PRIMARY KEY (transaction_id)
@@ -72,5 +73,5 @@ VALUES ('Basic Plan', 1, 'Allows streaming on one device at a time in standard d
 ('MTV KAtsomo+', 5, 'MTV Katsomo+ mainoksilla', 7.95),
 ('Apple TV+', 6, 'Share subscription up to five people, no ads', 9.99);
 
-INSERT INTO transactions (user_id, subscription_id, buy_price)
-VALUES (1, 3, 22.99), (1, 5, 16), (2, 9, 9.99), (2, 10, 7.95);
+INSERT INTO transactions (user_id, subscription_id, buy_price, purchase_date)
+VALUES (1, 3, 22.99, '2025-01-15'), (1, 5, 16, '2025-02-01'), (2, 9, 9.99, '2024-11-13'), (2, 10, 7.95, '2024-07-10');

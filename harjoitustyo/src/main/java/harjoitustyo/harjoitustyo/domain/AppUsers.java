@@ -39,19 +39,20 @@ public class AppUsers {
     @JoinColumn(name = "role_id")
     private Roles role;
 
-    @OneToMany(mappedBy = "users")
-    private List<Transactions> transaction;
+    @OneToMany(mappedBy = "user")
+    private List<Transactions> transactions;
 
     public AppUsers() {
     }
 
-    public AppUsers(String username, String firstName, String lastName, String email, String passwordhash, Roles role) {
+    public AppUsers(String username, String firstName, String lastName, String email, String passwordhash, Roles role, List<Transactions> transactions) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.passwordhash = passwordhash;
         this.role = role;
+        this.transactions = transactions;
     }
 
     public Long getId() {

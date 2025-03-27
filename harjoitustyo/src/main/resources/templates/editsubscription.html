@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Subscriptions Manager</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+	<div th:replace="~{navbar :: navbar}"></div>
+	<div class="container">
+        <h1>Edit subscription</h1>
+		<form th:object="${subscription}" th:action="@{/savesubscription}" action="#" method="post">
+            <input type="hidden" th:field="*{id}" />
+            <div class="form-group">
+                <label for="subscriptionName">Subscription name</label>
+			    <input type="text" class="form-control" id="subscriptionName" th:field="*{subscriptionName}" />
+            </div>
+            <div class="form-group">
+                <label for="subscriptionDescription">Subscription description</label>
+			    <textarea class="form-control" type="form-control" id="subscriptionDescription" th:field="*{subscriptionDescription}" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="subscriptionErpPrice">Subscription ERP Price</label>
+			    <input type="text" th:field="*{subscriptionErpPrice}" />
+            </div>
+		  	<div class="form-group">
+                <label for="vendor">Vendor</label>
+			    <select id="vendor" th:field="*{vendor}" class="form-control">
+       			    <option th:each="vendor: ${vendors}" th:value="${vendor.id}" th:text="${vendor.vendorName}"></option>
+    		    </select>
+            </div>
+			<input class="btn btn-primary" type="submit" value="Save"></input>
+		</form>
+	</div>
+</body>
+</html>
