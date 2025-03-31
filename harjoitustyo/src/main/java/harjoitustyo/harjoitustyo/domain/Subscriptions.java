@@ -13,6 +13,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "subscriptions")
@@ -23,12 +26,18 @@ public class Subscriptions {
     private Long id;
 
     @Column(name = "subscription_name", nullable = false)
+    @NotNull(message = "Please add subscription name")
+    @Size(min=2, max=50)
     private String subscriptionName;
 
     @Column(name = "subscription_description", nullable = false)
+    @NotNull(message = "Please add subscription description")
+    @Size(min=2, max=2500)
     private String subscriptionDescription;
 
     @Column(name = "subscription_erp_price", nullable = false)
+    @NotNull(message = "Please add ERP Price")
+    @DecimalMin(value = "0.01", inclusive = true, message = "ERP Price must be greater than 0.00")
     private double subscriptionErpPrice;
 
     @ManyToOne

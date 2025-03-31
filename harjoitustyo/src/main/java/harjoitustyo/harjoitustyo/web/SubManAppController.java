@@ -9,7 +9,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,7 @@ import harjoitustyo.harjoitustyo.domain.SubscriptionsRepository;
 import harjoitustyo.harjoitustyo.domain.Transactions;
 import harjoitustyo.harjoitustyo.domain.TransactionsRepository;
 import harjoitustyo.harjoitustyo.domain.VendorsRepository;
+import jakarta.validation.Valid;
 
 
 @Controller
@@ -74,7 +77,11 @@ public class SubManAppController {
     // Save subscription
     @PostMapping("/savesubscription")
     @PreAuthorize("hasRole('ADMIN')")
-    public String saveSubscription(Subscriptions subscription) {
+    public String saveSubscription(@Valid @ModelAttribute("subscription") Subscriptions subscription, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("vendors", vendorsRepository.findAll());
+            return "addsubscription";
+        }
         subscriptionsRepository.save(subscription);
         return "redirect:/subscriptions";
     }

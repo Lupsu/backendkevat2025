@@ -14,14 +14,17 @@
             <div class="form-group">
                 <label for="subscriptionName">Subscription name</label>
 			    <input type="text" class="form-control" id="subscriptionName" th:field="*{subscriptionName}" />
+                <div th:if="${#fields.hasErrors('subscriptionName')}" th:errors="*{subscriptionName}"></div>
             </div>
             <div class="form-group">
                 <label for="subscriptionDescription">Subscription description</label>
 			    <textarea class="form-control" type="form-control" id="subscriptionDescription" th:field="*{subscriptionDescription}" rows="4"></textarea>
+                <div th:if="${#fields.hasErrors('subscriptionDescription')}" th:errors="*{subscriptionDescription}"></div>
             </div>
             <div class="form-group">
                 <label for="subscriptionErpPrice">Subscription ERP Price</label>
 			    <input type="text" th:field="*{subscriptionErpPrice}" />
+                <div th:if="${#fields.hasErrors('subscriptionErpPrice')}" th:errors="*{subscriptionErpPrice}"></div>
             </div>
 		  	<div class="form-group">
                 <label for="vendor">Vendor</label>
